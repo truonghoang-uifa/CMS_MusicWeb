@@ -1,0 +1,98 @@
+﻿@using CMS.Models;
+@{
+    ViewBag.Title = "ChiTietRadio";
+    Radio radio = ViewBag.ChiTietRadio;
+    Radio radioTruoc = ViewBag.RadioTruoc;
+    Radio radioSau = ViewBag.RadioSau;
+}
+<!-- Podcast Thumbnail Area Start -->
+<section class="podcast-hero-area section-padding-80 bg-overlay bg-img jarallax" style="background-image: url('/fileupload/download?key=@(radio.AnhDaiDien)');">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="podcast-hero-text section-padding-80 d-flex align-items-center">
+                    <div class="podcast-txt- pr-md-5">
+                        <h5>Podcast Features</h5>
+                        <h2>Radio số @radio.SoThuTu - @radio.TieuDe</h2>
+                        <div class="podcast-meta-data">
+                            <a href="#" class="event-date"><i class="icon_calendar"></i> @radio.NgayDang.ToLongDateString()</a>
+                            <a href="#" class="event-time"><i class="fa fa-eye"></i> @radio.LuotXem</a>
+                            @*<a href="#" class="event-time"><i class="icon_heart_alt"></i> 38</a>*@
+                            <a href="#" class="event-address"><i class="icon_chat_alt"></i> <span class="fb-comments-count" data-href="./Radio/ChiTietRadio/@(radio.RadioID)"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Podcast Thumbnail Area End -->
+<!-- Audio Player Area Start -->
+<div class="podcast-audio-player-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="audio-player">
+                    <audio preload="auto" controls autoplay style="width: 100%; height: 90px; padding: 25px 0px">
+                        <source src="../../FileUpload/@(radio.LinkFile)" />
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Audio Player Area End -->
+
+<!-- Blog Details Area Start -->
+<section class="blog-details-area section-padding-80">
+    <div class="container">
+        <!-- Post Details Text -->
+        <div class="post-details-text">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-2 col-xl-1">
+                    <!-- Post Share -->
+                    <div class="razo-author-avatar">
+                        <img src="../../fileupload/download?key=@(radio.AnhDaiDien)" style="height: 65px" alt="">
+                        <h6 style="white-space: nowrap">@radio.NhanVien.HoTen</h6>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-10 col-xl-9">
+                    @Html.Raw(radio.NoiDung)
+                    <div class="razo-next-prev-pager mb-80 d-flex align-items-center justify-content-between">
+                        <div class="prev-pager">
+                            @if (radioTruoc != null)
+                            {
+                                <a href="@Url.Action("ChiTietRadio", "Radio", new { id = radioTruoc.RadioID })">
+                                    <span>Previous</span>
+                                    <h6>
+                                        <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                                        Radio số @radioTruoc.SoThuTu - @radioTruoc.TieuDe
+                                    </h6>
+                                </a>
+                            }
+                        </div>
+                       
+                        <div class="next-pager text-right">
+                            @if (radioSau != null)
+                            {
+                                <a href="@Url.Action("ChiTietRadio", "Radio", new { id = radioSau.RadioID })">
+                                    <span>Next</span>
+                                    <h6>
+                                        Radio số @radioSau.SoThuTu - @radioSau.TieuDe
+                                        <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </h6>
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Comments Area -->
+                    <div class="fb-comments" data-href="./Radio/ChiTietRadio/@radio.RadioID" data-numposts="10" data-width=""></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Details Area End -->

@@ -1,0 +1,108 @@
+﻿
+@using CMS.Models;
+@{
+    List<Radio> danhSachRadio = ViewBag.DanhSachRadio;
+    ViewBag.Title = "Radio";
+    Radio radioMoiNhat = danhSachRadio.FirstOrDefault();
+}
+<!-- Preloader -->
+<div id="preloader">
+    <div>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <span>Wait, please...</span>
+    </div>
+</div>
+<!-- /Preloader -->
+<!-- Podcast Thumbnail Area Start -->
+<section class="podcast-hero-area section-padding-80 bg-overlay bg-img jarallax" style="background-image: url('/fileupload/download?key=@(radioMoiNhat.AnhDaiDien)');">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="podcast-hero-text section-padding-80 d-flex align-items-center">
+                    <div class="podcast-txt- pr-md-5">
+                        <h5>Podcast Features</h5>
+                        <a href="@Url.Action("ChiTietRadio", "Radio", new { id = radioMoiNhat.RadioID })"><h2>Radio số @radioMoiNhat.SoThuTu - @radioMoiNhat.TieuDe</h2></a>
+                        <div class="podcast-meta-data">
+                            <a href="#" class="event-date"><i class="icon_calendar"></i> @radioMoiNhat.NgayDang.ToLongDateString()</a>
+                            <a href="#" class="event-time"><i class="fa fa-eye"></i> @radioMoiNhat.LuotXem</a>
+                            @*<a href="#" class="event-time"><i class="icon_heart_alt"></i> 38</a>*@
+                            <a href="#" class="event-address"><i class="icon_chat_alt"></i> <span class="fb-comments-count" data-href="./BaiViet/ChiTietBaiViet/@(radioMoiNhat.RadioID)"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Podcast Thumbnail Area End -->
+<!-- Audio Player Area Start -->
+<div class="podcast-audio-player-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="audio-player">
+                    <audio preload="auto">
+                        <source src="../../FileUpload/@(radioMoiNhat.LinkFile)">
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Audio Player Area End -->
+<!-- Latest Podcast Area Start -->
+<section class="razo-latest-podcast-area section-padding-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Section Heading -->
+                <div class="section-heading">
+                    <h2>Latest on PodCast:</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            @for (int i = 0; i < danhSachRadio.Count(); i++)
+            {
+                <!-- Single Podcast Area -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="single-podcast-area mb-30 wow fadeInUp" data-wow-delay="800ms">
+                        <!-- Thumbnail -->
+                        <div class="podcast-thumb">
+                            <img src="../../fileupload/download?key=@(danhSachRadio[i].AnhDaiDien)" alt="">
+                            <div class="like-comment">
+                                <a href="#" class="like">@danhSachRadio[i].LuotXem <i class="fa fa-eye"></i></a>
+                                <a href="#" class="like"><span class="fb-comments-count" data-href="./BaiViet/ChiTietBaiViet/@(danhSachRadio[i].RadioID)"></span> <i class="icon_chat"></i></a>
+                            </div>
+                        </div>
+                        <!-- Content -->
+                        <div class="podcast-content">
+                            <div class="podcast-meta">
+                                <a href="#"><i class="icon_calendar"></i> @danhSachRadio[i].NgayDang.ToLongDateString()</a>
+                            </div>
+                            <h5>@danhSachRadio[i].TieuDe</h5>
+                            <div class="border-line"></div>
+                            <div class="play-download-btn d-flex align-items-center justify-content-between">
+                                <a href="@Url.Action("ChiTietRadio", "Radio", new { id = danhSachRadio[i].RadioID })" class="btn razo-btn btn-sm">playing now</a>
+                                <a href="../../fileupload/download?key=@(danhSachRadio[i].LinkFile.Split('.')[0])" class="music-download-btn" download><i class="icon_download"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @*<div class="row">
+            <div class="col-12">
+                <div class="view-more-button text-center">
+                    <a href="#" class="btn razo-btn mt-50">View More</a>
+                </div>
+            </div>
+        </div>*@
+    </div>
+</section>
+<!-- Latest Podcast Area End -->

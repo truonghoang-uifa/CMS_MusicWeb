@@ -1,0 +1,63 @@
+﻿@using CMS.Models;
+@{
+    List<Album> danhSachAlbum = ViewBag.DanhSachAlbum;
+    ViewBag.Title = "Album";
+}
+
+<!-- Preloader -->
+<div id="preloader">
+    <div>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <span>Wait, please...</span>
+    </div>
+</div>
+<!-- /Preloader -->
+<!-- Show Welcome Area Start -->
+<section class="show-welcome-area bg-overlay bg-img jarallax" style="background-image: url(img/bg-img/23.jpg); height: 570px">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="show-welcome-text text-center">
+                    <h2>“Without music, life would be a mistake” ― Friedrich Nietzsche</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Show Welcome Area End -->
+<!-- Show Routine Area Start -->
+<section class="show-routine-area section-padding-80-0 mb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="tab-content" id="showRoutineTabContent">
+                    <!-- Single Tab Content -->
+                    <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab-1">
+                        <div class="row">
+                            @for (int i = 0; i < danhSachAlbum.Count(); i++)
+                            {
+                                <!-- Single Show Item -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="single-show-item mb-30" style="height: 260px">
+                                        <img src="./fileupload/download?key=@(danhSachAlbum[i].AnhDaiDien)" style="width: 100%;" alt="">
+                                        <div class="overlay-content">
+                                            <div class="text-center">
+                                                <a href="@Url.Action("ChiTietAlbum", "Album", new { id = danhSachAlbum[i].AlbumID})" style="color: white"><h3 style="color: white">@danhSachAlbum[i].TenAlbum</h3></a>
+                                                <span>@danhSachAlbum[i].Album_BaiHat.Count() bài hát</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Show Routine Area End -->
